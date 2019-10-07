@@ -34,11 +34,10 @@ MongoClient.connect(url,  function(err, db) {
   dbo.collection(config.collection).find(query).toArray(async function(err, result) {
     if (err) throw err;
     console.log(result);
-    await result.map( async item => {
-        item = analyzeNew(item)
-        await saveNew(item, dbo)
-    })
-
+    for (let item of result){
+      item = analyzeNew(item)
+      await saveNew(item, dbo)
+    }
     db.close();
   });
 });

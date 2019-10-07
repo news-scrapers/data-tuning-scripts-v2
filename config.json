@@ -1,0 +1,3 @@
+{"db":"news-scraped-round2",
+"collection":"NewsContentScraped",
+"excluded_words":["atentado", "Atentado", "atentar", "Atentar", "terrorista", "Terrorista", "inmola", "Inmola"]}

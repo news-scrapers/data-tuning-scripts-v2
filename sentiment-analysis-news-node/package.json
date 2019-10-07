@@ -1,0 +1,20 @@
+{
+  "name": "sentiment-analysis-news-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "install": "^0.13.0",
+    "mongodb": "^3.3.2",
+    "multilang-sentiment": "^1.2.0",
+    "npm": "^6.11.3",
+    "sentiment": "^5.0.1",
+    "sentiment-spanish": "0.0.8"
+  }
+}

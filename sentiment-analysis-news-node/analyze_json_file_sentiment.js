@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const json = require('big-json');
  
 const readStream = fs.createReadStream('raw_results.json');
@@ -20,7 +19,7 @@ const analyzeNew = (newScraped) => {
 
 const storeData = (data, path) => {
     try {
-      fs.writeFileSync(path, JSON.parse(data))
+      fs.writeFileSync(path, JSON.stringify(data))
     } catch (err) {
       console.error(err)
     }
@@ -60,15 +59,25 @@ readStream.pipe(parseStream);
 
 */
  
-const contents = fs.readFileSync('raw_results.json', 'utf8');
+const path= 'raw_results.json';
+const contents = fs.readFileSync(path, 'utf8');
 const result = JSON.parse(contents);
+console.log(result[1])
 
-/*
+let i = 0;
 for (let item of result){
   if (!item.sentiment_analysis_obj){
-    console.log("processing new " + count);
-    item = analyzeNew(item);
-    await saveNew(item, dbo)
+    console.log("processing new " + i);
+    result[i] = analyzeNew(item);
+    if (i%1000===0){
+      console.log("saving results ");
+      storeData(result,path)
+    }
   }
+  i = i+1;
 }
-*/
+console.log("saving final results ");
+storeData(result,path)
+//node --max-old-space-size=4096
+
+

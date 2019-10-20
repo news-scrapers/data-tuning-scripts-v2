@@ -74,7 +74,9 @@ MongoClient.connect(url,  function(err, db) {
         console.log("processing new " + count);
         item = analyzeNew(result[count]);
         result[count] = item;
-        await saveNew(item, dbo);
+        if (count%10 === 0){
+          console.log("saving results as file")
+        }
       }
     }
     db.close();

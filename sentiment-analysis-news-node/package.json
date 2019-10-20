@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "big-json": "^3.0.0",
     "install": "^0.13.0",
     "mongodb": "^3.3.2",
     "multilang-sentiment": "^1.2.0",

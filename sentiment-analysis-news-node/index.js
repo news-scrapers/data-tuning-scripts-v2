@@ -18,6 +18,17 @@ const saveNew = (newScraped, dbo) => new Promise ((resolve, reject) => {
   });
 })
 
+const saveManyNews = (newsScraped, dbo) => new Promise ((resolve, reject) => {
+  dbo.collection(config.collection).saveMany(newsScraped, function(err, res) {
+    if (err) reject(err);
+    console.log(newsScraped.length() + " documents updated ");
+    resolve();
+
+  });
+})
+
+
+
 const analyzeNew = (newScraped) => {
     sentimentAnalysis = sentiment(newScraped.content, 'es');
     newScraped.sentiment_analysis_obj = sentimentAnalysis;
@@ -28,15 +39,43 @@ const analyzeNew = (newScraped) => {
     return newScraped;
 }
 
+/*
 MongoClient.connect(url,  function(err, db) {
   if (err) throw err;
   const dbo = db.db(config.db);
   dbo.collection(config.collection).find(query).toArray(async function(err, result) {
     if (err) throw err;
     console.log(result);
+    let count = 0
     for (let item of result){
-      item = analyzeNew(item)
-      await saveNew(item, dbo)
+      if (!item.sentiment_analysis_obj){
+        console.log("processing new " + count);
+        item = analyzeNew(item);
+        await saveNew(item, dbo)
+      }
+    }
+    db.close();
+  });
+});
+*/
+
+const saveAsFile = (result) => {
+
+}
+
+MongoClient.connect(url,  function(err, db) {
+  if (err) throw err;
+  const dbo = db.db(config.db);
+  dbo.collection(config.collection).find(query).toArray(async function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    for (let count=0; count++; count<= result.length()){
+      if (!result[count].sentiment_analysis_obj){
+        console.log("processing new " + count);
+        item = analyzeNew(result[count]);
+        result[count] = item;
+        await saveNew(item, dbo);
+      }
     }
     db.close();
   });

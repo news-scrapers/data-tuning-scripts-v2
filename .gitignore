@@ -1,5 +1,8 @@
 
 raw_results*
+processed_news.json
+processed_news.zip
+.DS_Store
 # Logs
 logs
 *.log

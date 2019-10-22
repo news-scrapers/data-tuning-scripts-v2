@@ -2,6 +2,14 @@ setwd("/Users/hugojosebello/Documents/git-repos/data-tuning-scripts-v2/r_scripts
 all_data <- read.csv("./all.csv",  header=TRUE, sep=";")
 all_hombres <- read.csv("./all_hombres.csv",  header=TRUE, sep=";")
 all_mujeres <- read.csv("./all_mujeres.csv",  header=TRUE, sep=";")
+all_moved <- read.csv("./all_moved.csv",  header=TRUE, sep=";")
+
+r <- with(all_moved, which(noticias_suicidio>270, arr.ind=TRUE))
+all_moved <- all_moved[-r, ]
+
+r <- with(all_data, which(noticias_suicidio>270, arr.ind=TRUE))
+all_data <- all_data[-r, ]
+
 # Installation
 # install.packages('ggplot2')
 # Loading
@@ -12,6 +20,8 @@ library(lubridate)
 
 all_data$month <- ymd(all_data$month)
 
+all_data_minus5 = all_data
+all_data_minus5$month <- all_data_minus5$month - days(5 *30)
 
 ggplot(all_data, aes(month, noticias_suicidio)) + geom_line() + xlab("") + ylab("Numero noticias suicidio")
 
@@ -50,11 +60,11 @@ cor.test(all_data$suicidios, all_data$noticias_suicidio, method = "kendall")
 
 
 # cross-correlation of TIME SERIES
-ccf(all_data$noticias_suicidio, all_data$suicidios)
+cor.test(all_data$noticias_suicidio, all_data$suicidios)
 
-ccf(-all_data$media_sentimiento_noticias, all_data$suicidios)
+cor.test(-all_data$media_sentimiento_noticias, all_data$suicidios)
 
-ccf(-all_data$sentiment_analysis_score, all_data$suicidios)
+cor.test(-all_data$sentiment_analysis_score, all_data$suicidios)
 
 # men and women not significative differences
 ccf(all_hombres$noticias_suicidio, all_hombres$suicidios)
@@ -81,3 +91,55 @@ ccf(-all_mujeres$sentiment_analysis_score, all_mujeres$suicidios)
 # https://nwfsc-timeseries.github.io/atsa-labs/sec-tslab-correlation-within-and-among-time-series.html
 
 # in our case: We find that suicide cases are relatively high after a periode of 10 to 20 months of higher number of news
+
+
+
+plot(all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 5 meses después")
+lm(all_moved$noticias_suicidio ~ all_moved$suicidios_3_meses_despues)
+abline(lm(all_moved$noticias_suicidio ~ all_moved$suicidios_3_meses_despues))
+
+plot(-all_moved$media_sentimiento_noticias, all_moved$suicidios_3_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 5 meses después")
+lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_3_meses_despues)
+abline(lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_3_meses_despues))
+
+
+cor.test(all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
+cor.test(-all_moved$media_sentimiento_noticias, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
+cor.test(-all_moved$sentiment_analysis_score, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
+
+plot(all_moved$noticias_suicidio, all_moved$suicidios_4_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 5 meses después")
+lm(-all_moved$noticias_suicidio ~ all_moved$suicidios_4_meses_despues)
+abline(lm(-all_moved$noticias_suicidio ~ all_moved$suicidios_4_meses_despues))
+
+plot(-all_moved$media_sentimiento_noticias, all_moved$suicidios_4_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 5 meses después")
+lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_4_meses_despues)
+abline(lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_4_meses_despues))
+
+
+cor.test(-all_moved$noticias_suicidio, all_moved$suicidios_4_meses_despues)
+cor.test(-all_moved$media_sentimiento_noticias, all_moved$suicidios_4_meses_despues)
+cor.test(-all_moved$sentiment_analysis_score, all_moved$suicidios_4_meses_despues)
+
+
+plot(all_moved$noticias_suicidio, all_moved$suicidios_5_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 4 meses después")
+lm(-all_moved$noticias_suicidio ~ all_moved$suicidios_5_meses_despues)
+abline(lm(-all_moved$noticias_suicidio ~ all_moved$suicidios_5_meses_despues))
+
+plot(all_moved$media_sentimiento_noticias, all_moved$suicidios_5_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 4 meses después")
+lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_5_meses_despues)
+abline(-lm(all_moved$media_sentimiento_noticias ~ all_moved$suicidios_5_meses_despues))
+
+
+cor.test(all_moved$noticias_suicidio, all_moved$suicidios_5_meses_despues)
+cor.test(all_moved$media_sentimiento_noticias, -all_moved$suicidios_5_meses_despues)
+cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_5_meses_despues)
+
+
+
+ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) + 
+  geom_point(aes(size=noticias_suicidio)) + geom_smooth()
+
+
+ggplot(all_moved, aes(x=noticias_suicidio, y=suicidios_3_meses_despues)) + 
+  geom_point(aes(size=-media_sentimiento_noticias)) + geom_smooth()
+

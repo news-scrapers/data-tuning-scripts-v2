@@ -29,7 +29,7 @@ ggplot(all_data, aes(month, -media_sentimiento_noticias)) + geom_line() + xlab("
 
 ggplot(all_data, aes(month, -sentiment_analysis_score)) + geom_line() + xlab("") + ylab("Score noticias suicidio")
 
-ggplot(all_data, aes(month, suicidios)) + geom_line() + xlab("") + ylab("Numero noticias suicidio")
+ggplot(all_data, aes(month, suicidios)) + geom_line() + xlab("") + ylab("Numero de suicidios")
 
 plot(all_data$noticias_suicidio, all_data$suicidios, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios")
 lm(all_data$noticias_suicidio ~ all_data$suicidios)
@@ -60,6 +60,15 @@ cor.test(all_data$suicidios, all_data$noticias_suicidio, method = "kendall")
 
 
 # cross-correlation of TIME SERIES
+
+ccf(all_data$noticias_suicidio, all_hombres$suicidios,main="correlation function: number of suicide news\n agaist number of suicides")
+
+
+ccf(-all_data$media_sentimiento_noticias, all_hombres$suicidios, main="correlation function: average negative sentiment in news\n agaist number of suicides")
+
+ccf(-all_data$sentiment_analysis_score, all_hombres$suicidios)
+
+
 cor.test(all_data$noticias_suicidio, all_data$suicidios)
 
 cor.test(-all_data$media_sentimiento_noticias, all_data$suicidios)
@@ -94,7 +103,7 @@ ccf(-all_mujeres$sentiment_analysis_score, all_mujeres$suicidios)
 
 
 
-plot(all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios 5 meses después")
+plot(all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues, col = "blue", main = "", xlab = "number of suicide news", ylab = "number of suicides after 3 months")
 lm(all_moved$noticias_suicidio ~ all_moved$suicidios_3_meses_despues)
 abline(lm(all_moved$noticias_suicidio ~ all_moved$suicidios_3_meses_despues))
 
@@ -136,10 +145,10 @@ cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_5_meses_despue
 
 
 
-ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) + 
-  geom_point(aes(size=noticias_suicidio)) + geom_smooth()
+ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) +  labs(size = "Number of suicide news",y="number of suicides after 3 moths", x="average sentiment of negative news") +
+  geom_point(aes(size=noticias_suicidio), alpha = 0.5) + geom_smooth()
 
 
 ggplot(all_moved, aes(x=noticias_suicidio, y=suicidios_3_meses_despues)) + 
-  geom_point(aes(size=-media_sentimiento_noticias)) + geom_smooth()
+  geom_point(aes(size=-media_sentimiento_noticias,  alpha = 0.5)) + geom_smooth()
 

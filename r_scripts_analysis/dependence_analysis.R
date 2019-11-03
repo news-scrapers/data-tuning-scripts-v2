@@ -61,10 +61,10 @@ cor.test(all_data$suicidios, all_data$noticias_suicidio, method = "kendall")
 
 # cross-correlation of TIME SERIES
 
-ccf(all_data$noticias_suicidio, all_hombres$suicidios,main="correlation function: number of suicide news\n agaist number of suicides")
+ccf(all_data$noticias_suicidio, all_hombres$suicidios,main="correlation function: number of suicide news per month\n agaist number of suicides per moth")
 
 
-ccf(-all_data$media_sentimiento_noticias, all_hombres$suicidios, main="correlation function: average negative sentiment in news\n agaist number of suicides")
+ccf(-all_data$media_sentimiento_noticias, all_hombres$suicidios, main="correlation function: average negative sentiment in news per month\n agaist number of suicides per month")
 
 ccf(-all_data$sentiment_analysis_score, all_hombres$suicidios)
 
@@ -149,7 +149,7 @@ cor.test(all_moved$media_sentimiento_noticias, -all_moved$suicidios_5_meses_desp
 cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_5_meses_despues)
 
 
-ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) +  labs(size = "Number of suicide news",y="number of suicides after 3 moths", x="average sentiment of negative news") +
+ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) +  labs(size = "Number of suicide news\n in same moth",y="number of suicides after 3 moths", x="average sentiment of negative news") +
   geom_point(aes(size=noticias_suicidio), alpha = 0.5) + geom_smooth()
 
 

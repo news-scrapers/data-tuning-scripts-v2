@@ -112,6 +112,11 @@ lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_3_meses_despues)
 abline(lm(-all_moved$media_sentimiento_noticias ~ all_moved$suicidios_3_meses_despues))
 
 
+
+cor.test(-all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues)
+cor.test(-all_moved$media_sentimiento_noticias, all_moved$suicidios_3_meses_despues)
+cor.test(-all_moved$sentiment_analysis_score, all_moved$suicidios_3_meses_despues)
+
 cor.test(all_moved$noticias_suicidio, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
 cor.test(-all_moved$media_sentimiento_noticias, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
 cor.test(-all_moved$sentiment_analysis_score, all_moved$suicidios_3_meses_despues, method = c("pearson", "kendall", "spearman"))
@@ -142,7 +147,6 @@ abline(-lm(all_moved$media_sentimiento_noticias ~ all_moved$suicidios_5_meses_de
 cor.test(all_moved$noticias_suicidio, all_moved$suicidios_5_meses_despues)
 cor.test(all_moved$media_sentimiento_noticias, -all_moved$suicidios_5_meses_despues)
 cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_5_meses_despues)
-
 
 
 ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) +  labs(size = "Number of suicide news",y="number of suicides after 3 moths", x="average sentiment of negative news") +

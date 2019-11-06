@@ -23,13 +23,14 @@ all_data$month <- ymd(all_data$month)
 all_data_minus5 = all_data
 all_data_minus5$month <- all_data_minus5$month - days(5 *30)
 
-ggplot(all_data, aes(month, noticias_suicidio)) + geom_line() + xlab("") + ylab("Numero noticias suicidio")
+ggplot(all_data, aes(month, noticias_suicidio)) + geom_line() + xlab("") + ylab("Amount of suicide news (per month)")
 
-ggplot(all_data, aes(month, -media_sentimiento_noticias)) + geom_line() + xlab("") + ylab("Media sentimentos negativos noticias")
+ggplot(all_data, aes(month, -media_sentimiento_noticias)) + geom_line() + xlab("") + ylab("Average negative sentiment of news")+
++ ggplot(all_moved, aes(month, suicidios_3_meses_despues)) + geom_line() + xlab("") + ylab("Average negative sentiment of news")
 
 ggplot(all_data, aes(month, -sentiment_analysis_score)) + geom_line() + xlab("") + ylab("Score noticias suicidio")
 
-ggplot(all_data, aes(month, suicidios)) + geom_line() + xlab("") + ylab("Numero de suicidios")
+ggplot(all_data, aes(month, suicidios)) + geom_line() + xlab("") + ylab("Number of suicides (per month)")
 
 plot(all_data$noticias_suicidio, all_data$suicidios, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios")
 lm(all_data$noticias_suicidio ~ all_data$suicidios)

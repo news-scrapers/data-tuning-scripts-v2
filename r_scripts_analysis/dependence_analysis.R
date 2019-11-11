@@ -149,6 +149,9 @@ cor.test(all_moved$noticias_suicidio, all_moved$suicidios_5_meses_despues)
 cor.test(all_moved$media_sentimiento_noticias, -all_moved$suicidios_5_meses_despues)
 cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_5_meses_despues)
 
+cor.test(all_moved$noticias_suicidio, all_moved$suicidios_6_meses_despues)
+cor.test(all_moved$media_sentimiento_noticias, -all_moved$suicidios_6_meses_despues)
+cor.test(all_moved$sentiment_analysis_score, -all_moved$suicidios_6_meses_despues)
 
 ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues)) +  labs(size = "Number of suicide news\n in same month",y="Number of suicides after 3 moths", x="Average sentiment of negative news") +
   geom_point(aes(size=noticias_suicidio), alpha = 0.5) + geom_smooth()

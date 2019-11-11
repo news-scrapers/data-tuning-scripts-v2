@@ -74,6 +74,7 @@ def main():
     result_table_moved_ambos = create_table_moved(result_ambos, 3)
     result_table_moved_ambos = create_table_moved(result_table_moved_ambos, 4)
     result_table_moved_ambos = create_table_moved(result_table_moved_ambos, 5)
+    result_table_moved_ambos = create_table_moved(result_table_moved_ambos, 6)
 
 
     result_table_moved_ambos.to_csv("../data/processed/all_moved.csv", sep=";", index=False)

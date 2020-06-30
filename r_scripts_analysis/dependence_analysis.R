@@ -79,7 +79,7 @@ cor.test(-all_data$sentiment_analysis_score, all_data$suicidios)
 # men and women not significative differences
 ccf(all_hombres$noticias_suicidio, all_hombres$suicidios)
 
-ccf(-all_hombres$media_sentimiento_noticias, all_hombres$suicidios)
+ccf(-all_data$media_sentimiento_noticias, all_data$suicidios)
 
 ccf(-all_hombres$sentiment_analysis_score, all_hombres$suicidios)
 

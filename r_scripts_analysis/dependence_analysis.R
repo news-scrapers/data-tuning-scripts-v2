@@ -30,6 +30,7 @@ ggplot(all_data, aes(month, -media_sentimiento_noticias)) + geom_line() + xlab("
 
 ggplot(all_data, aes(month, -sentiment_analysis_score)) + geom_line() + xlab("") + ylab("Score noticias suicidio")
 
+#!!!
 ggplot(all_data, aes(month, suicidios)) + geom_line() + xlab("") + ylab("Number of suicides (per month)")
 
 plot(all_data$noticias_suicidio, all_data$suicidios, col = "blue", main = "", xlab = "noticias suicidio", ylab = "suicidios")
@@ -159,4 +160,17 @@ ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues
 
 ggplot(all_moved, aes(x=noticias_suicidio, y=suicidios_3_meses_despues)) + 
   geom_point(aes(size=-media_sentimiento_noticias,  alpha = 0.5)) + geom_smooth()
+
+
+require(smooth)
+
+ts_sentiment_analysis_score = ts(-all_data$media_sentimiento_noticias, frequency = 12)
+decompose_ts_sentiment_analysis_score = decompose(ts_sentiment_analysis_score, "multiplicative")
+plot(decompose_ts_sentiment_analysis_score)
+plot(decompose_ts_sentiment_analysis_score$trend)
+
+ts_suicide = ts(all_data$suicidios, frequency = 12)
+decompose_ts_suicide = decompose(ts_suicide, "multiplicative")
+plot(decompose_ts_suicide)
+plot(decompose_ts_suicide$trend)
 

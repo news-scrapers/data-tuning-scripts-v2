@@ -161,6 +161,8 @@ ggplot(all_moved, aes(x=-media_sentimiento_noticias, y=suicidios_3_meses_despues
 ggplot(all_moved, aes(x=noticias_suicidio, y=suicidios_3_meses_despues)) + 
   geom_point(aes(size=-media_sentimiento_noticias,  alpha = 0.5)) + geom_smooth()
 
+ggplot(all_moved, aes(x=media_sentimiento_noticias, y=suicidios_5_meses_despues)) + 
+  geom_point(aes(size=-media_sentimiento_noticias,  alpha = 0.5)) + geom_smooth()
 
 require(smooth)
 
